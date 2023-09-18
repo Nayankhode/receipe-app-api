@@ -1,0 +1,21 @@
+---
+name: checks # any name
+
+on: [push] # Trigger
+
+jobs: # create jobs id
+  test-lint:
+    name: Test and Lint # name of the job
+    runs-on: Ubuntu-20.04 # os
+    steps:
+      - name: Login to Docker Hub #login to docker hub
+        users: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USER }}
+          password: ${{ secrects.DOCKERHUB_TOKEN }}
+      - name: Checkout # checkout with checckout action
+        user: actions/checkout@v2
+      - name: Test # Run the test using docker compose
+        run: docker-compose run --rm app sh -c "python manage.py test"
+      - name: Lint #run teh lint using docker compose
+        run: docker-compose run --rm app sh -c "flake8"
