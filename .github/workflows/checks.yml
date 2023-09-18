@@ -12,7 +12,7 @@ jobs: # create jobs id
         users: docker/login-action@v1
         with:
           username: ${{ secrets.DOCKERHUB_USER }}
-          password: ${{ secrects.DOCKERHUB_TOKEN }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Checkout # checkout with checckout action
         user: actions/checkout@v2
       - name: Test # Run the test using docker compose
